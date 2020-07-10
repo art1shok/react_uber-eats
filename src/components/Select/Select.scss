@@ -1,0 +1,40 @@
+.select {
+  position: relative;
+
+  &__input {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    color: #fff;
+
+    padding: 10px 40px;
+
+    background-color: transparent;
+    border: 1px solid #979797;
+    border-radius: 0;
+    cursor: pointer;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+
+    height: 20px;
+    width: 20px;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+
+    height: 8px;
+    width: 14px;
+  }
+
+  &__option {
+    background: #262626;
+  }
+
+}
