@@ -2,7 +2,7 @@
   "homepage": "http://art1shok.github.io/react_uber-eats",
   "name": "react_uber-eats",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "keywords": [],
   "author": "Artem Kvitka",
   "license": "GPL-3.0",
