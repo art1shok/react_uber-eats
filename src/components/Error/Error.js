@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './Error.scss';
+import { Link } from 'react-router-dom';
 
 const Error = (props) => {
   const { message } = props;
