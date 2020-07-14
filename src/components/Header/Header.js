@@ -19,11 +19,34 @@ export class Header extends Component {
     },
   ]
 
+  elementRef = React.createRef();
+
   state ={
     address: '',
     time: '',
     search: '',
     selectedButton: null,
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
+  }
+
+  handleClickOutside = (event) => {
+    const { current } = this.elementRef;
+
+    if (this.state.selectedButton !== null
+      && current
+      && !current.contains(event.target)
+    ) {
+      this.setState({
+        selectedButton: null,
+      });
+    }
   }
 
   handleChange = ({ target }) => {
@@ -36,27 +59,35 @@ export class Header extends Component {
     if (this.state.selectedButton === index) {
       this.setState({ selectedButton: null });
     } else {
-      this.setState({ selectedButton: index });
+      this.setState({
+        selectedButton: index,
+      });
     }
   }
 
   renderHeaderButtons = () => (
     <div className="header__toggle-buttons">
-      {this.headerButtons.map(({ src, alt }, index) => (
-        // because index is never changes
-        /* eslint-disable react/no-array-index-key */
-        <button
-          key={index}
-          onClick={() => this.headerButtonClick(index)}
-          type="button"
-          className="header__toggle-btn"
-        >
-          <img
-            src={src}
-            alt={alt}
-          />
-        </button>
-      ))}
+      {this.headerButtons.map(({ src, alt }, index) => {
+        const activeClassName = index === this.state.selectedButton
+          ? 'header__toggle-btn--active'
+          : '';
+
+        return (
+          // because index is never changes
+          /* eslint-disable react/no-array-index-key */
+          <button
+            key={index}
+            onClick={() => this.headerButtonClick(index)}
+            type="button"
+            className={`header__toggle-btn ${activeClassName}`}
+          >
+            <img
+              src={src}
+              alt={alt}
+            />
+          </button>
+        );
+      })}
     </div>
   )
 
@@ -70,7 +101,10 @@ export class Header extends Component {
 
     return (
       <header className="header">
-        <div className="content">
+        <div
+          className="content"
+          ref={this.elementRef}
+        >
           <div className="header__inner">
             <img
               className="header__logo"
@@ -116,7 +150,9 @@ export class Header extends Component {
 
           </div>
           {(selectedButton === 0 || selectedButton === 1) && (
-            <div className="header__mobile-controls mobile-controls">
+            <div
+              className="header__mobile-controls mobile-controls"
+            >
               {selectedButton === 0 && (
               <>
                 <Input
