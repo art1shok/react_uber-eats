@@ -19,12 +19,6 @@ export class Header extends Component {
     },
   ]
 
-  hiddenInputs = [
-    {
-
-    },
-  ]
-
   state ={
     address: '',
     time: '',
@@ -65,10 +59,6 @@ export class Header extends Component {
       ))}
     </div>
   )
-
-  renderHeaderInput = () => {
-
-  }
 
   render() {
     const {

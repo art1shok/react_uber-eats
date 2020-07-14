@@ -10,7 +10,18 @@ import appStore from '../../assets/images/app-store.png';
 import fb from '../../assets/images/fb.svg';
 import tw from '../../assets/images/tw.svg';
 import ig from '../../assets/images/ig.svg';
-import { Select } from '../Select/Select';
+import Select from '../Select/Select';
+
+const items = [
+  {
+    id: 1,
+    value: 'English',
+  },
+  {
+    id: 2,
+    value: 'Ukrainian',
+  },
+];
 
 export const Footer = () => (
   <footer className="footer">
@@ -24,19 +35,7 @@ export const Footer = () => (
               alt="Uber Eats"
             />
 
-            <Select
-              name="language"
-              options={[
-                {
-                  value: 'en', label: 'English',
-                },
-                {
-                  value: 'ua', label: 'Ukrainian',
-                },
-              ]}
-              value="en"
-              iconUrl={world}
-            />
+            <Select title="English" options={items} iconUrl={world} />
           </div>
 
           <div className="footer__mobile-apps">
