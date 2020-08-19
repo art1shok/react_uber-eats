@@ -1,36 +1,40 @@
-export const ACTION_TYPES = {
+export const ACTIONS_TYPES = {
   SAVE_RESTAURANTS: 'SAVE_RESTAURANTS',
-  SET_LOAD_RESTAURANTS_ERROR: 'SET_LOAD_RESTAURANTS_ERROR',
   START_LOADING: 'START_LOADING',
   STOP_LOADING: 'STOP_LOADING',
+  SET_LOAD_RESTAURANTS_ERROR: 'SET_LOAD_RESTAURANTS_ERROR',
 };
 
 const saveRestaurants = data => ({
-  type: ACTION_TYPES.SAVE_RESTAURANTS,
+  type: ACTIONS_TYPES.SAVE_RESTAURANTS,
   payload: data,
 });
 
 const setRestaurantsError = error => ({
-  type: ACTION_TYPES.SET_LOAD_RESTAURANTS_ERROR,
+  type: ACTIONS_TYPES.SET_LOAD_RESTAURANTS_ERROR,
   payload: error,
 });
 
 const startLoading = () => ({
-  type: ACTION_TYPES.START_LOADING,
+  type: ACTIONS_TYPES.START_LOADING,
 });
 
 const stopLoading = () => ({
-  type: ACTION_TYPES.STOP_LOADING,
+  type: ACTIONS_TYPES.STOP_LOADING,
 });
 
-export const loadRestaurants = () => (dispatch) => {
-  dispatch(startLoading());
+export const loadRestaurants = () => async(dispatch) => {
+  try {
+    dispatch(startLoading());
+    const response = await fetch(
+      'https://mate-uber-eats-api.herokuapp.com/api/v1/restaurants'
+    );
+    const { data } = await response.json();
 
-  fetch(' https://mate-uber-eats-api.herokuapp.com/api/v1/restaurants')
-    .then(res => res.json())
-    .then(({ data }) => {
-      dispatch(saveRestaurants(data));
-    })
-    .catch(error => dispatch(setRestaurantsError(error.message)))
-    .finally(() => dispatch(stopLoading()));
+    dispatch(saveRestaurants(data));
+  } catch (e) {
+    dispatch(setRestaurantsError(e.message));
+  } finally {
+    dispatch(stopLoading());
+  }
 };

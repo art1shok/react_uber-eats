@@ -12,7 +12,7 @@ export const selectRestaurantsList = createSelector(
     const { feedItems, storesMap } = restaurantsListData;
 
     return feedItems.map(({ uuid }) => storesMap[uuid]);
-  }
+  },
 );
 
 export const selectRestaurantsListError = createSelector(
