@@ -4,8 +4,10 @@ import './RestaurantCard.scss';
 
 export const RestaurantCard = (props) => {
   const {
-    imageUrl, categories,
-    title, etaRange,
+    imageUrl,
+    categories,
+    title,
+    etaRange,
   } = props;
 
   return (

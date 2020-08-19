@@ -1,31 +1,43 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import Proptypes from 'prop-types';
 import { RestaurantCard } from '../RestaurantCard/RestaurantCard';
+
 import './RestaurantsListPage.scss';
 import { Loader } from '../Loader/Loader';
 import Error from '../Error/Error';
 
-const DEFAULT_ETA_RANGE = '20 - 30 min';
+const DEFAULT_ETA_RANGE = '20-30 min';
 
-export const RestaurantsListPage = (
-  { restaurantsData, loadRestaurants, error, isLoading }
-) => {
-  useEffect(() => {
-    loadRestaurants();
-  }, [loadRestaurants]);
+export class RestaurantsListPage extends Component {
+  componentDidMount() {
+    const {
+      isLoading,
+      loadRestaurants,
+    } = this.props;
 
-  if (isLoading) {
-    return <Loader />;
+    if (!isLoading) {
+      loadRestaurants();
+    }
   }
 
-  if (error) {
-    return <Error message={error} />;
-  }
+  render() {
+    const {
+      restaurantsData,
+      error,
+      isLoading,
+    } = this.props;
 
-  return (
-    <div className="restaurants-list">
-      {
-        restaurantsData.map((restaurant) => {
+    if (isLoading) {
+      return <Loader />;
+    }
+
+    if (error) {
+      return <Error message={error} />;
+    }
+
+    return (
+      <div className="restaurant-list">
+        {restaurantsData.map((restaurant) => {
           const {
             uuid,
             title,
@@ -44,17 +56,17 @@ export const RestaurantsListPage = (
               etaRange={etaRange ? etaRange.errorMessage : DEFAULT_ETA_RANGE}
             />
           );
-        })
-      }
-    </div>
-  );
-};
+        })}
+      </div>
+    );
+  }
+}
 
 RestaurantsListPage.propTypes = {
-  restaurantsData: PropTypes.arrayOf(PropTypes.shape({})),
-  loadRestaurants: PropTypes.func.isRequired,
-  error: PropTypes.string,
-  isLoading: PropTypes.bool,
+  restaurantsData: Proptypes.arrayOf(Proptypes.shape({})),
+  loadRestaurants: Proptypes.func.isRequired,
+  error: Proptypes.string,
+  isLoading: Proptypes.bool,
 };
 
 RestaurantsListPage.defaultProps = {
