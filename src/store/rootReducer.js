@@ -2,6 +2,8 @@ import { ACTIONS_TYPES } from './actions';
 
 const initialState = {
   restaurantsListData: null,
+  restaurantInfo: null,
+  menuItemInfo: null,
   isLoading: false,
   error: null,
 };
@@ -15,6 +17,24 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         error: null,
         restaurantsListData: payload,
+      };
+    }
+
+    case ACTIONS_TYPES.SAVE_RESTAURANT_INFO: {
+      const { payload } = action;
+
+      return {
+        ...state,
+        restaurantInfo: payload,
+      };
+    }
+
+    case ACTIONS_TYPES.SAVE_MENU_ITEM_INFO: {
+      const { payload } = action;
+
+      return {
+        ...state,
+        menuItemInfo: payload,
       };
     }
 

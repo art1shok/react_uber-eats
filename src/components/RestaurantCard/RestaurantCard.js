@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './RestaurantCard.scss';
+import { useHistory } from 'react-router-dom';
 
 export const RestaurantCard = (props) => {
   const {
@@ -8,7 +9,13 @@ export const RestaurantCard = (props) => {
     categories,
     title,
     etaRange,
+    uuid,
   } = props;
+
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(`restaurant/${uuid}`);
+  };
 
   return (
     <div className="restaurant-card">
@@ -16,8 +23,11 @@ export const RestaurantCard = (props) => {
         src={imageUrl}
         alt={title}
         className="restaurant-card__img"
+        onClick={handleClick}
       />
-      <h2>{title}</h2>
+      <h2>
+        {title}
+      </h2>
       <div className="restaurant-card__categories">
         {categories.join(' • ')}
       </div>
@@ -34,6 +44,7 @@ RestaurantCard.propTypes = {
   title: PropTypes.string.isRequired,
   categories: PropTypes.arrayOf(PropTypes.string),
   etaRange: PropTypes.string,
+  uuid: PropTypes.string.isRequired,
 };
 
 RestaurantCard.defaultProps = {

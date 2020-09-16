@@ -24,3 +24,7 @@ export const selectIsLoading = createSelector(
   rootSelector,
   ({ isLoading }) => isLoading
 );
+
+export const selectRestaurantInfo = ({ restaurantInfo }) => restaurantInfo;
+
+export const selectMenuItemInfo = ({ menuItemInfo }) => menuItemInfo;

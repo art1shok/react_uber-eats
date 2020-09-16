@@ -47,14 +47,20 @@ export class RestaurantsListPage extends Component {
           } = restaurant;
 
           return (
-            <RestaurantCard
+            <div
+              className="content"
               key={uuid}
-              uuid={uuid}
-              title={title}
-              imageUrl={heroImageUrl}
-              categories={categories}
-              etaRange={etaRange ? etaRange.errorMessage : DEFAULT_ETA_RANGE}
-            />
+            >
+
+              <RestaurantCard
+                key={uuid}
+                uuid={uuid}
+                title={title}
+                imageUrl={heroImageUrl}
+                categories={categories}
+                etaRange={etaRange ? etaRange.text : DEFAULT_ETA_RANGE}
+              />
+            </div>
           );
         })}
       </div>

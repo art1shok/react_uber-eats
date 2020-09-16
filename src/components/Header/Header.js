@@ -106,12 +106,13 @@ export class Header extends Component {
           ref={this.elementRef}
         >
           <div className="header__inner">
-            <img
-              className="header__logo"
-              src={logo}
-              alt="Uber Eats"
-            />
-
+            <Link to="/">
+              <img
+                className="header__logo"
+                src={logo}
+                alt="Uber Eats"
+              />
+            </Link>
             <div className="header__delivery-info">
               <Input
                 name="address"

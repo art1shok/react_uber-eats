@@ -1,0 +1,152 @@
+@import "../../styles/utils";
+
+.restaurant-page {
+  margin-top: -40px;
+
+  &__top {
+    position: relative;
+  }
+
+  &__img-wrapper {
+    height: 380px;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__details {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+
+    @media screen and (max-width: $break-point-tablet) {
+      top: auto;
+      bottom: 0;
+      transform: none;
+    }
+  }
+
+  &__details-wrapper {
+    position: relative;
+    max-width: 1520px;
+    margin: 0 auto;
+  }
+
+  &__details-content {
+    position: absolute;
+    padding: 24px 40px 24px 34px;
+    margin: 0 auto;
+
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transform: translateY(-50%);
+    background: #fff;
+
+    @media screen and (max-width: $break-point-tablet) {
+      width: 90%;
+      max-width: 574px;
+      margin-right: 100px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &::before {
+      display: block;
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: -1;
+      background: #fff;
+      width: 100vw;
+      height: 100%;
+
+      @media screen and (max-width: $break-point-tablet) {
+        display: none;
+      }
+    }
+  }
+
+  &__main-title {
+    font-size: 36px;
+    margin-bottom: 16px;
+
+    @media screen and (max-width: $break-point-tablet) {
+      font-size: 28px;
+    }
+  }
+
+  &__description {
+    margin-bottom: 18px;
+    color: #757575;
+  }
+
+  &__time {
+    width: 86px;
+    height: 24px;
+    text-align: center;
+    margin-bottom: 18px;
+    background: #f5f5f5;
+  }
+
+  &__nav-wrapper {
+    position: sticky;
+    top: -30px;
+    height: 110px;
+    padding-top: 30px;
+    background-color: #fff;
+    z-index: 1;
+    @media screen and (max-width: $break-point-tablet) {
+      margin-top: 120px;
+    }
+    @media screen and (max-width: $break-point-low) {
+      margin-top: 150px;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    overflow: auto;
+    white-space: nowrap;
+    list-style-type: none;
+    background-color: #fff;
+    z-index: 1;
+  }
+
+  &__nav-link {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    height: 50px;
+    margin-right: 24px;
+    font-size: 14px;
+    color: #000;
+    cursor: pointer;
+
+    &::after {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      display: block;
+      content: "";
+      opacity: 0;
+      background: #000;
+      transition: 0.3s;
+      transform: translateY(-10px);
+    }
+
+    &:hover::after {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
