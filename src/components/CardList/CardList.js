@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React/* { useState } */ from 'react';
 import PropTypes from 'prop-types';
 import './CardList.scss';
-import { ModalWindow } from '../ModalWindow/ModalWindow';
+// import { ModalWindow } from '../ModalWindow/ModalWindow';
 
+// eslint-disable-next-line consistent-return
 const cutDescription = (string) => {
   if (string) {
     if (string.length <= 60) {
@@ -13,16 +14,15 @@ const cutDescription = (string) => {
   }
 };
 
-export const CardList = ({ cardInfo }) => {
-  const [isOpened, setIsOpened] = useState(false);
-
-  return (
+export const CardList = ({ cardInfo }) =>
+// const [isOpened, setIsOpened] = useState(false);
+  // eslint-disable-next-line implicit-arrow-linebreak
+  (
     <div className="card-list">
       {cardInfo.map(card => (
         <div
           className="card-list__item"
           key={card.uuid}
-          onClick={() => setIsOpened(true)}
         >
           <div className="card-list__left-section">
             <h3 className="card-list__title">
@@ -46,14 +46,12 @@ export const CardList = ({ cardInfo }) => {
           </div>
         </div>
       ))}
-      <ModalWindow
-        isOpened={isOpened}
-        onClose={() => setIsOpened(false)}
-      />
+      {/* <ModalWindow */}
+      {/*  isOpened={isOpened} */}
+      {/*  onClose={() => setIsOpened(false)} */}
+      {/* /> */}
     </div>
   );
-};
-
 CardList.propTypes = {
   cardInfo: PropTypes.arrayOf(
     PropTypes.shape({
