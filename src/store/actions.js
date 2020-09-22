@@ -1,3 +1,5 @@
+import { apiService } from '../api/apiService';
+
 export const ACTIONS_TYPES = {
   SAVE_RESTAURANTS: 'SAVE_RESTAURANTS',
   SAVE_RESTAURANT_INFO: 'SAVE_RESTAURANTS_INFO',
@@ -36,52 +38,31 @@ const saveMenuItemInfo = data => ({
 });
 
 export const loadRestaurants = () => async(dispatch) => {
-  try {
-    dispatch(startLoading());
-    const response = await fetch(
-      'https://mate-uber-eats-api.herokuapp.com/api/v1/restaurants'
-    );
-    const { data } = await response.json();
-
-    dispatch(saveRestaurants(data));
-  } catch (e) {
-    dispatch(setRestaurantsError(e.message));
-  } finally {
-    dispatch(stopLoading());
-  }
+  dispatch(startLoading());
+  apiService.getRestaurants()
+    .then(({ data }) => dispatch(saveRestaurants(data)))
+    .catch((e) => {
+      dispatch(setRestaurantsError(e.message));
+    })
+    .finally(() => dispatch(stopLoading()));
 };
 
 export const loadRestaurantInfo = id => async(dispatch) => {
-  try {
-    dispatch(startLoading());
-
-    const response = await fetch(
-      `https://mate-uber-eats-api.herokuapp.com/api/v1/restaurants/${id}`
-    );
-    const { data } = await response.json();
-
-    dispatch(saveRestaurantInfo(data));
-  } catch (e) {
-    dispatch(setRestaurantsError(e.message));
-  } finally {
-    dispatch(stopLoading());
-  }
+  dispatch(startLoading());
+  apiService.getRestaurantInfo(id)
+    .then(({ data }) => dispatch(saveRestaurantInfo(data)))
+    .catch((e) => {
+      dispatch(setRestaurantsError(e.message));
+    })
+    .finally(() => dispatch(stopLoading()));
 };
 
 export const loadMenuItemInfo = id => async(dispatch) => {
-  try {
-    dispatch(startLoading());
-
-    const response = await fetch(
-      `https://mate-uber-eats-api.herokuapp.com/api/v1/menu-items${id}`
-    );
-
-    const { data } = await response.json();
-
-    dispatch(saveMenuItemInfo(data));
-  } catch (e) {
-    dispatch(setRestaurantsError(e.message));
-  } finally {
-    dispatch(stopLoading());
-  }
+  dispatch(startLoading());
+  apiService.getMenuItemInfo(id)
+    .then(data => dispatch(saveMenuItemInfo(data)))
+    .catch((e) => {
+      dispatch(setRestaurantsError(e.message));
+    })
+    .finally(() => dispatch(stopLoading()));
 };

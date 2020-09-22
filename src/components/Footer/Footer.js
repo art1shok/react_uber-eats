@@ -4,13 +4,17 @@ import './Footer.scss';
 import { Link } from 'react-router-dom';
 import logoWhite from '../../assets/images/logo-white.svg';
 import world from '../../assets/images/world.svg';
-import googlePlay from '../../assets/images/google-play.png';
-import appStore from '../../assets/images/app-store.png';
 
 import fb from '../../assets/images/fb.svg';
 import tw from '../../assets/images/tw.svg';
 import ig from '../../assets/images/ig.svg';
 import Select from '../Select/Select';
+
+const google = 'https://play.google.com/store/'
+  + 'apps/details?id=com.ubercab.eats&hl=ru';
+
+const appStore = 'https://apps.apple.com/us/app/'
+  + 'uber-eats-food-delivery/id1058959277';
 
 const items = [
   {
@@ -29,37 +33,36 @@ export const Footer = () => (
       <div className="footer__top-part">
         <div className="footer__main">
           <div className="footer__logo-container">
+
             <img
               className="footer__logo"
               src={logoWhite}
               alt="Uber Eats"
             />
-
             <Select title="English" options={items} iconUrl={world} />
+
           </div>
 
           <div className="footer__mobile-apps">
-            <Link
+            <a
               className="footer__mobile-app"
-              to="#"
+              href={appStore}
             >
-              <img
-                src={appStore}
-                alt="Google Play"
-                className="footer__mobile-app"
+              <div
+                className="footer__app-store"
               />
-            </Link>
-            <Link
+            </a>
+
+            <a
               className="footer__mobile-app"
-              to="#"
+              href={google}
             >
-              <img
-                src={googlePlay}
-                alt="App Store"
-                className="footer__mobile-app"
+              <div
+                className="footer__google-play"
               />
-            </Link>
+            </a>
           </div>
+
         </div>
 
         <div className="footer__top-links links">
@@ -75,8 +78,8 @@ export const Footer = () => (
           <Link to="#" className="links__link">
             Add your restaurant
           </Link>
-
         </div>
+
         <div className="footer__top-links">
           <Link to="#" className="links__link links__link--intended">
             Get help
@@ -87,12 +90,12 @@ export const Footer = () => (
           <Link to="#" className="links__link">
             View all cities
           </Link>
-
         </div>
       </div>
+
       <div className="footer__bottom-part">
         <p className="footer__copyright">
-          © 2019 Uber Technologies Inc.
+          © 2020 Uber Technologies Inc.
         </p>
         <div className="footer__misc">
           <div className="footer__bottom-links links">
@@ -106,16 +109,26 @@ export const Footer = () => (
               Pricing
             </Link>
           </div>
+
           <div className="footer__social social">
-            <Link to="#" className="social__link">
-              <img src={fb} alt="facebook" className="" />
-            </Link>
-            <Link to="#" className="social__link">
-              <img src={tw} alt="twitter" className="" />
-            </Link>
-            <Link to="#" className="social__link">
-              <img src={ig} alt="instagram" className="" />
-            </Link>
+            <a
+              href="https://www.facebook.com/UberEats/"
+              className="social__link"
+            >
+              <img src={fb} alt="facebook" className="social__facebook" />
+            </a>
+            <a
+              href="https://twitter.com/ubereats"
+              className="social__link"
+            >
+              <img src={tw} alt="twitter" className="social__twitter" />
+            </a>
+            <a
+              href="https://www.instagram.com/ubereats/"
+              className="social__link"
+            >
+              <img src={ig} alt="instagram" className="social__twitter" />
+            </a>
           </div>
         </div>
       </div>

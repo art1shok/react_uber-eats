@@ -1,43 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './RestaurantCard.scss';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export const RestaurantCard = (props) => {
-  const {
-    imageUrl,
-    categories,
-    title,
-    etaRange,
-    uuid,
-  } = props;
-
-  const history = useHistory();
-  const handleClick = () => {
-    history.push(`restaurant/${uuid}`);
-  };
-
-  return (
-    <div className="restaurant-card">
-      <img
-        src={imageUrl}
-        alt={title}
-        className="restaurant-card__img"
-        onClick={handleClick}
-      />
-      <h2>
-        {title}
-      </h2>
-      <div className="restaurant-card__categories">
-        {categories.join(' • ')}
+export const RestaurantCard
+  = ({ imageUrl, categories, title, etaRange, uuid }) => (
+    <Link to={`/restaurant/${uuid}`}>
+      <div
+        className="restaurant-card"
+      >
+        <img
+          src={imageUrl}
+          alt={`restaurant_${title}`}
+          className="restaurant-card__img"
+        />
+        <h2
+          className="restaurant-card__title"
+        >
+          {title}
+        </h2>
+        <div className="restaurant-card__categories">
+          {categories.join(' • ')}
+        </div>
+        <div className="restaurant-card__time">
+          {etaRange.replace(/–/, ' - ')}
+        </div>
       </div>
-      <div className="restaurant-card__eta">
-        {etaRange}
-      </div>
-      {title}
-    </div>
+    </Link>
   );
-};
 
 RestaurantCard.propTypes = {
   imageUrl: PropTypes.string.isRequired,

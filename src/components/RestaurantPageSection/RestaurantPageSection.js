@@ -4,11 +4,14 @@ import './RestaurantPageSection.scss';
 import { CardList } from '../CardList/CardList';
 
 export const RestaurantPageSection = ({ sections }) => (
-  <div className="restaurant-page__menu-item">
+  <div
+    className="restaurant-page__menu-item"
+  >
     {sections.map(section => (
       (
-        <React.Fragment
+        <section
           key={section.uuid}
+          id={section.title}
         >
           <div
             className="restaurant-page__section-item-title"
@@ -25,12 +28,11 @@ export const RestaurantPageSection = ({ sections }) => (
               uuid: section.entitiesMap[itemCardUuids].uuid,
             }))}
           />
-        </React.Fragment>
+        </section>
       )
     ))}
   </div>
 );
-
 RestaurantPageSection.propTypes = {
   sections: PropTypes.arrayOf(
     PropTypes.shape({

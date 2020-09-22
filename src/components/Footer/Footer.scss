@@ -39,7 +39,7 @@
       margin-bottom: 20px;
     }
 
-    &:last-of-type {
+    &:first-child {
       margin-right: 20px;
     }
 
@@ -51,6 +51,26 @@
     @media (max-width: $break-point-tablet) {
       margin-bottom: 40px;
     }
+  }
+
+  &__google-play,
+  &__app-store {
+    width: 135px;
+    height: 40px;
+    border-radius: 6px;
+    z-index: -1;
+    border: 1px solid silver;
+
+  }
+
+  &__app-store {
+    background: url("../../assets/images/app-store.png") no-repeat;
+    background-size: cover;
+  }
+
+  &__google-play {
+    background: url("../../assets/images/google-play.png") no-repeat;
+    background-size: cover;
   }
 
   &__top-part,
@@ -118,11 +138,19 @@
     }
 
     &:hover {
-      text-decoration: underline;
+      color: #62b80d;
     }
   }
 }
 
-.social__link {
-  margin-right: 20px;
+.social {
+  &__link {
+    margin-right: 20px;
+  }
+
+  &__facebook:hover {
+    stroke: #00acee;
+    fill: #00acee;
+    color: #00acee;
+  }
 }

@@ -3,10 +3,11 @@ import { Provider } from 'react-redux';
 import './App.scss';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { store } from './store';
-import { RestaurantsListPage } from './components/RestaurantsListPage';
 import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 import RestaurantPage from './components/RestaurantPage/RestaurantPage';
+import RestaurantsListPage
+  from './components/RestaurantsListPage/RestaurantsListPage';
 
 const App = () => (
   <Provider store={store}>

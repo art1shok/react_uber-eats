@@ -1,10 +1,7 @@
-import { createSelector } from 'reselect';
+export const selectRestaurantsListError = ({ error }) => error;
 
-const rootSelector = state => state;
-
-export const selectRestaurantsList = createSelector(
-  rootSelector,
-  ({ restaurantsListData }) => {
+export const selectRestaurantsList
+  = ({ restaurantsListData }) => {
     if (!restaurantsListData) {
       return [];
     }
@@ -12,18 +9,9 @@ export const selectRestaurantsList = createSelector(
     const { feedItems, storesMap } = restaurantsListData;
 
     return feedItems.map(({ uuid }) => storesMap[uuid]);
-  },
-);
+  };
 
-export const selectRestaurantsListError = createSelector(
-  rootSelector,
-  ({ error }) => error
-);
-
-export const selectIsLoading = createSelector(
-  rootSelector,
-  ({ isLoading }) => isLoading
-);
+export const selectIsLoading = ({ isLoading }) => isLoading;
 
 export const selectRestaurantInfo = ({ restaurantInfo }) => restaurantInfo;
 
