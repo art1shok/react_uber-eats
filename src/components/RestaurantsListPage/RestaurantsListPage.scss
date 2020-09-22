@@ -1,18 +1,22 @@
 @import "../../styles/utils";
 
 .restaurant-list {
-  --card-width: 348px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
+  grid-template-columns: repeat(4, minmax(348px, 1fr));
   gap: 40px 20px;
 
-  @media (max-width: $break-point-tablet-lg) {
-    --card-width: 340px;
+  @media (max-width: 1520px) {
+    grid-template-columns: repeat(3, minmax(250px, 1fr));
 
     row-gap: 20px;
   }
 
-  @media (max-width: $break-point-phone) {
+  @media (max-width: $break-point-tablet) {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+
+  @media (max-width: $break-point-phone-lg) {
     --card-width: 250px;
+    grid-template-columns: repeat(1, minmax(250px, 1fr));
   }
 }

@@ -17,7 +17,7 @@ const RestaurantsListPage = () => {
   const restaurantsData = useSelector(selectRestaurantsList);
   const error = useSelector(selectRestaurantsListError);
   const dispatch = useDispatch();
-  const [restaurantsPerPage, setRestaurantPerPage] = useState(9);
+  const [restaurantsPerPage, setRestaurantPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
 
   const indexOfLastRestaurant = currentPage * restaurantsPerPage;
@@ -30,7 +30,13 @@ const RestaurantsListPage = () => {
   };
 
   useEffect(() => {
-    setRestaurantPerPage(12);
+    if (window.innerWidth < 1281) {
+      setRestaurantPerPage(9);
+      if (window.innerWidth < 768) {
+        setRestaurantPerPage(4);
+      }
+    }
+
     dispatch(loadRestaurants());
   }, []);
 

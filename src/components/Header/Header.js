@@ -1,74 +1,74 @@
-import React, { Component } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './Header.scss';
 
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
 import place from '../../assets/images/place.svg';
-import searchicon from '../../assets/images/searchicon.svg';
+import searchIcon from '../../assets/images/searchicon.svg';
 import close from '../../assets/images/close.svg';
 
 import { Input } from '../Input/Input';
 
-export class Header extends Component {
-  headerButtons = [
-    {
-      src: place, alt: 'place icon',
-    },
-    {
-      src: searchicon, alt: 'search icon',
-    },
-  ]
-
-  elementRef = React.createRef();
-
-  state ={
+export const Header = () => {
+  const elementRef = useRef();
+  const [info, setInfo] = useState({
     address: '',
     time: '',
     search: '',
     selectedButton: null,
-  }
+  });
 
-  componentDidMount() {
-    document.addEventListener('click', this.handleClickOutside);
-  }
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
 
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside);
-  }
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
-  handleClickOutside = (event) => {
-    const { current } = this.elementRef;
+  const headerButtons = [
+    {
+      src: place, alt: 'place icon',
+    },
+    {
+      src: searchIcon, alt: 'search icon',
+    },
+  ];
 
-    if (this.state.selectedButton !== null
-      && current
+  const handleClickOutside = (event) => {
+    const { current } = elementRef;
+
+    if (current
       && !current.contains(event.target)
     ) {
-      this.setState({
+      setInfo({
         selectedButton: null,
       });
     }
-  }
+  };
 
-  handleChange = ({ target }) => {
-    this.setState({
+  const handleChange = ({ target }) => {
+    setInfo({
       [target.name]: target.value,
     });
-  }
+  };
 
-  headerButtonClick = (index = null) => {
-    if (this.state.selectedButton === index) {
-      this.setState({ selectedButton: null });
+  const headerButtonClick = (index = null) => {
+    if (info.selectedButton === index) {
+      setInfo({
+        selectedButton: null,
+      });
     } else {
-      this.setState({
+      setInfo({
         selectedButton: index,
       });
     }
-  }
+  };
 
-  renderHeaderButtons = () => (
+  const renderHeaderButtons = () => (
     <div className="header__toggle-buttons">
-      {this.headerButtons.map(({ src, alt }, index) => {
-        const activeClassName = index === this.state.selectedButton
+      {headerButtons.map(({ src, alt }, index) => {
+        const activeClassName = index === info.selectedButton
           ? 'header__toggle-btn--active'
           : '';
 
@@ -77,7 +77,7 @@ export class Header extends Component {
           /* eslint-disable react/no-array-index-key */
           <button
             key={index}
-            onClick={() => this.headerButtonClick(index)}
+            onClick={() => headerButtonClick(index)}
             type="button"
             className={`header__toggle-btn ${activeClassName}`}
           >
@@ -89,78 +89,70 @@ export class Header extends Component {
         );
       })}
     </div>
-  )
+  );
 
-  render() {
-    const {
-      address,
-      time,
-      search,
-      selectedButton,
-    } = this.state;
-
-    return (
-      <header className="header">
-        <div
-          className="content"
-          ref={this.elementRef}
-        >
-          <div className="header__inner">
-            <Link to="/">
-              <img
-                className="header__logo"
-                src={logo}
-                alt="Uber Eats"
-              />
-            </Link>
-            <div className="header__delivery-info">
-              <Input
-                name="address"
-                value={address}
-                onChange={this.handleChange}
-                placeholder="Address"
-                iconUrl={place}
-              />
-              <Input
-                name="time"
-                value={time}
-                onChange={this.handleChange}
-                placeholder="Time"
-                type="time"
-              />
-            </div>
-
-            <div className="header__search">
-              <Input
-                name="search"
-                value={search}
-                onChange={this.handleChange}
-                placeholder="Search"
-                iconUrl={searchicon}
-              />
-            </div>
-
-            {this.renderHeaderButtons()}
-
-            <Link
-              className="header__link"
-              to="/sign-in"
-            >
-            Sign In
-            </Link>
-
+  return (
+    <header className="header">
+      <div
+        className="content"
+        ref={elementRef}
+      >
+        <div className="header__inner">
+          <Link to="/">
+            <img
+              className="header__logo"
+              src={logo}
+              alt="Uber Eats"
+            />
+          </Link>
+          <div className="header__delivery-info">
+            <Input
+              name="address"
+              value={info.address}
+              onChange={handleChange}
+              placeholder="Address"
+              iconUrl={place}
+            />
+            <Input
+              name="time"
+              value={info.time}
+              onChange={handleChange}
+              placeholder="Time"
+              type="time"
+            />
           </div>
-          {(selectedButton === 0 || selectedButton === 1) && (
-            <div
-              className="header__mobile-controls mobile-controls"
-            >
-              {selectedButton === 0 && (
+
+          <div className="header__search">
+            <Input
+              name="search"
+              value={info.search}
+              onChange={handleChange}
+              placeholder="Search"
+              iconUrl={searchIcon}
+            />
+          </div>
+
+          {renderHeaderButtons()}
+
+          <Link
+            className="header__link"
+            to="/sign-in"
+          >
+            Sign In
+          </Link>
+
+        </div>
+        {(info.selectedButton === 0 || info.selectedButton === 1) && (
+          <div
+            className="header__mobile-controls mobile-controls"
+          >
+            {info.selectedButton === 0 && (
               <>
                 <Input
                   label="Where"
                   name="address"
-                  value={address}
-                  onChange={this.handleChange}
+                  value={info.address}
+                  onChange={handleChange}
                   placeholder="Address"
                   iconUrl={place}
                   isSmall={false}
@@ -168,39 +160,38 @@ export class Header extends Component {
                 <Input
                   label="To"
                   name="time"
-                  value={time}
-                  onChange={this.handleChange}
+                  value={info.time}
+                  onChange={handleChange}
                   placeholder="Time"
                   type="time"
                   isSmall={false}
                 />
               </>
-              )}
-              {selectedButton === 1 && (
-                <Input
-                  label="Find"
-                  name="search"
-                  value={search}
-                  onChange={this.handleChange}
-                  placeholder="Search"
-                  iconUrl={searchicon}
-                  isSmall={false}
-                />
-              )}
-              <button
-                onClick={() => this.headerButtonClick()}
-                type="button"
-                className="mobile-controls__close"
-              >
-                <img
-                  src={close}
-                  alt="close icon"
-                />
-              </button>
-            </div>
-          )}
-        </div>
-      </header>
-    );
-  }
-}
+            )}
+            {info.selectedButton === 1 && (
+              <Input
+                label="Find"
+                name="search"
+                value={info.search}
+                onChange={handleChange}
+                placeholder="Search"
+                iconUrl={searchIcon}
+                isSmall={false}
+              />
+            )}
+            <button
+              onClick={() => headerButtonClick()}
+              type="button"
+              className="mobile-controls__close"
+            >
+              <img
+                src={close}
+                alt="close icon"
+              />
+            </button>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};
