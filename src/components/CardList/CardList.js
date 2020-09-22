@@ -51,6 +51,7 @@ export const CardList = ({ cardInfo }) => (
     {/* /> */}
   </div>
 );
+
 CardList.propTypes = {
   cardInfo: PropTypes.arrayOf(
     PropTypes.shape({

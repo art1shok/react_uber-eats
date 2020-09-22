@@ -5,13 +5,12 @@
   height: var(--height);
   width: 100%;
 
-  cursor: pointer;
-
   &__img {
     height: calc(var(--height) * 0.7);
     width: 100%;
 
     object-fit: cover;
+    cursor: pointer;
   }
 
   &__title {
@@ -21,6 +20,11 @@
     line-height: 1.2;
     font-size: 16px;
     margin: 8px 0;
+    cursor: pointer;
+
+    &:hover {
+      color: #62b80d;
+    }
   }
 
   &__categories {

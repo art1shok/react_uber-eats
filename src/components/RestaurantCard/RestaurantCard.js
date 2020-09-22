@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom';
 
 export const RestaurantCard
   = ({ imageUrl, categories, title, etaRange, uuid }) => (
-    <Link to={`/restaurant/${uuid}`}>
-      <div
-        className="restaurant-card"
-      >
+    <div
+      className="restaurant-card"
+    >
+      <Link to={`/restaurant/${uuid}`}>
         <img
           src={imageUrl}
           alt={`restaurant_${title}`}
@@ -19,14 +19,15 @@ export const RestaurantCard
         >
           {title}
         </h2>
-        <div className="restaurant-card__categories">
-          {categories.join(' • ')}
-        </div>
-        <div className="restaurant-card__time">
-          {etaRange.replace(/–/, ' - ')}
-        </div>
+      </Link>
+
+      <div className="restaurant-card__categories">
+        {categories.join(' • ')}
       </div>
-    </Link>
+      <div className="restaurant-card__time">
+        {etaRange.replace(/–/, ' - ')}
+      </div>
+    </div>
   );
 
 RestaurantCard.propTypes = {
