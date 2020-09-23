@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectRestaurantsList,
   selectIsLoading,
   selectRestaurantsListError,
+  selectQueryString,
 } from '../../store/selectors';
 import './RestaurantsListPage.scss';
 import { Loader } from '../Loader/Loader';
@@ -16,29 +17,42 @@ const RestaurantsListPage = () => {
   const isLoading = useSelector(selectIsLoading);
   const restaurantsData = useSelector(selectRestaurantsList);
   const error = useSelector(selectRestaurantsListError);
+  const query = useSelector(selectQueryString);
   const dispatch = useDispatch();
   const [restaurantsPerPage, setRestaurantPerPage] = useState(12);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const indexOfLastRestaurant = currentPage * restaurantsPerPage;
-  const indexOfFirstRestaurant = indexOfLastRestaurant - restaurantsPerPage;
-  const currentRestaurants = restaurantsData
-    .slice(indexOfFirstRestaurant, indexOfLastRestaurant);
-
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    if (window.innerWidth < 1281) {
+    if (window.innerWidth <= 1280) {
       setRestaurantPerPage(9);
-      if (window.innerWidth < 768) {
+      if (window.innerWidth <= 768) {
         setRestaurantPerPage(4);
       }
     }
 
     dispatch(loadRestaurants());
-  }, []);
+  }, [dispatch]);
+
+  const firstRestaurantIndex = useMemo(() => restaurantsPerPage * currentPage, [
+    currentPage,
+    restaurantsPerPage,
+  ]);
+
+  const lastRestaurantIndex = useMemo(
+    () => firstRestaurantIndex + restaurantsPerPage,
+    [firstRestaurantIndex, restaurantsPerPage],
+  );
+
+  const restaurantsList = useMemo(() => {
+    if (query) {
+      return restaurantsData.filter((item) =>
+        item.title.toLowerCase().includes(query.toLowerCase()));
+    }
+
+    return restaurantsData;
+  }, [query, restaurantsData]);
+
+  const pagesCount = Math.ceil(restaurantsList.length / restaurantsPerPage);
 
   if (isLoading) {
     return <Loader />;
@@ -51,21 +65,22 @@ const RestaurantsListPage = () => {
   return (
     <>
       <div className="restaurant-list content">
-        {currentRestaurants.map(restaurant => (
-          <RestaurantCard
-            key={restaurant.uuid}
-            uuid={restaurant.uuid}
-            title={restaurant.title}
-            imageUrl={restaurant.heroImageUrl}
-            categories={restaurant.categories}
-            etaRange={restaurant.etaRange.text}
-          />
-        ))}
+        {restaurantsList
+          .slice(firstRestaurantIndex, lastRestaurantIndex)
+          .map((restaurant) => (
+            <RestaurantCard
+              key={restaurant.uuid}
+              uuid={restaurant.uuid}
+              title={restaurant.title}
+              imageUrl={restaurant.heroImageUrl}
+              categories={restaurant.categories}
+              etaRange={restaurant.etaRange.text}
+            />
+          ))}
       </div>
       <Pagination
-        restaurantsPerPage={restaurantsPerPage}
-        totalRestaurants={restaurantsData.length}
-        paginate={paginate}
+        pagesCount={pagesCount}
+        paginate={setCurrentPage}
         currentPage={currentPage}
       />
     </>

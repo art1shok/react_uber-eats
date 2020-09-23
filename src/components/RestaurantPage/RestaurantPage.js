@@ -21,11 +21,11 @@ const RestaurantPage = () => {
 
   useEffect(() => {
     dispatch(loadRestaurantInfo(uuid));
-  }, [dispatch]);
+  }, [dispatch, uuid]);
 
   useEffect(() => {
     dispatch(loadMenuItemInfo(uuid));
-  }, [dispatch]);
+  }, [dispatch, uuid]);
 
   if (isLoading && !info) {
     return (
@@ -56,7 +56,7 @@ const RestaurantPage = () => {
                     {`£ • ${info.cuisineList.join(' • ')}`}
                   </p>
                   <p className="restaurant-page__time">
-                35 - 45 min
+                    35 - 45 min
                   </p>
                   <p className="restaurant-page__location">
                     {info.location.address}
@@ -69,14 +69,13 @@ const RestaurantPage = () => {
           <div className="content">
             <div className="restaurant-page__main-content">
               <RestaurantPageNav
-                sections={info.sections.map(sectionUuid => ({
+                sections={info.sections.map((sectionUuid) => ({
                   title: info.sectionsMap[sectionUuid].title, uuid: sectionUuid,
-                }))
-                }
+                }))}
               />
 
               <RestaurantPageSection
-                sections={info.sections.map(sectionUuid => ({
+                sections={info.sections.map((sectionUuid) => ({
                   title: info.sectionsMap[sectionUuid].title,
                   uuid: sectionUuid,
                   itemUuids: info.sectionsMap[sectionUuid].itemUuids,

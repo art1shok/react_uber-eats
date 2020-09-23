@@ -4,6 +4,7 @@ const initialState = {
   restaurantsListData: null,
   restaurantInfo: null,
   menuItemInfo: null,
+  queryString: '',
   isLoading: false,
   error: null,
 };
@@ -35,6 +36,15 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         menuItemInfo: payload,
+      };
+    }
+
+    case ACTIONS_TYPES.SAVE_QUERY: {
+      const { payload } = action;
+
+      return {
+        ...state,
+        queryString: payload,
       };
     }
 

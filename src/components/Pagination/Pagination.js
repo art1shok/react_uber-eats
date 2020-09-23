@@ -2,60 +2,75 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Pagination.scss';
 
-const Pagination
-  = ({ totalRestaurants, restaurantsPerPage, paginate, currentPage }) => {
-    const pageNumbers = [];
+const Pagination = ({
+  pagesCount, paginate, currentPage,
+}) => {
+  const pageNumbers = [];
+  const lastPage = pagesCount - 1;
 
-    const pagesCount = Math.ceil(totalRestaurants / restaurantsPerPage);
+  const delta = 2;
+  const maxDelta = delta * 2;
+  let leftNumber = currentPage - delta;
+  let rightNumber = currentPage + delta;
 
-    for (let i = 1; i <= pagesCount; i += 1) {
-      pageNumbers.push(i);
+  if (lastPage >= maxDelta) {
+    if (currentPage < delta) {
+      rightNumber = maxDelta;
     }
 
-    return (
-      <nav>
-        <ul className="pagination">
-          {pageNumbers.map(pageNumber => (
-            <li
-              key={pageNumber}
-              className="pagination__item"
-            >
-              <a
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.scrollTo(
-                    {
-                      top: 0,
-                      behavior: 'smooth',
-                    }
-                  );
+    if (currentPage > lastPage - delta) {
+      leftNumber = lastPage - maxDelta;
+    }
+  }
 
-                  return paginate(pageNumber);
-                }}
-                href="/#"
-                className={pageNumber === currentPage
-                  ? 'pagination__link pagination__active'
-                  : 'pagination__link'}
-              >
-                {pageNumber}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    );
-  };
+  for (let i = 0; i <= lastPage; i += 1) {
+    if (i >= leftNumber && i <= rightNumber) {
+      pageNumbers.push(i);
+    }
+  }
+
+  return (
+    <nav>
+      <ul className="pagination">
+        {pageNumbers.map((pageNumber) => (
+          <li
+            key={pageNumber}
+            className="pagination__item"
+          >
+            <a
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo(
+                  {
+                    top: 0,
+                    behavior: 'smooth',
+                  },
+                );
+
+                return paginate(pageNumber);
+              }}
+              href="/#"
+              className={pageNumber === currentPage
+                ? 'pagination__link pagination__active'
+                : 'pagination__link'}
+            >
+              {pageNumber + 1}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
 
 Pagination.propTypes = {
-  restaurantsPerPage: PropTypes.number,
-  totalRestaurants: PropTypes.number,
+  pagesCount: PropTypes.number,
   paginate: PropTypes.func,
   currentPage: PropTypes.number,
 };
 
 Pagination.defaultProps = {
-  restaurantsPerPage: null,
-  totalRestaurants: null,
+  pagesCount: null,
   paginate: null,
   currentPage: 1,
 };

@@ -2,12 +2,14 @@ import React, { useRef, useEffect, useState } from 'react';
 import './Header.scss';
 
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import logo from '../../assets/images/logo.svg';
 import place from '../../assets/images/place.svg';
 import searchIcon from '../../assets/images/searchicon.svg';
 import close from '../../assets/images/close.svg';
 
 import { Input } from '../Input/Input';
+import { saveQuery } from '../../store/actions';
 
 export const Header = () => {
   const elementRef = useRef();
@@ -17,23 +19,7 @@ export const Header = () => {
     search: '',
     selectedButton: null,
   });
-
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
-
-  const headerButtons = [
-    {
-      src: place, alt: 'place icon',
-    },
-    {
-      src: searchIcon, alt: 'search icon',
-    },
-  ];
+  const dispatch = useDispatch();
 
   const handleClickOutside = (event) => {
     const { current } = elementRef;
@@ -47,6 +33,26 @@ export const Header = () => {
     }
   };
 
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(saveQuery(info.search));
+  }, [dispatch, info.search]);
+
+  const headerButtons = [
+    {
+      src: place, alt: 'place icon',
+    },
+    {
+      src: searchIcon, alt: 'search icon',
+    },
+  ];
   const handleChange = ({ target }) => {
     setInfo({
       [target.name]: target.value,

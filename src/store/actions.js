@@ -7,14 +7,15 @@ export const ACTIONS_TYPES = {
   START_LOADING: 'START_LOADING',
   STOP_LOADING: 'STOP_LOADING',
   SET_LOAD_RESTAURANTS_ERROR: 'SET_LOAD_RESTAURANTS_ERROR',
+  SAVE_QUERY: 'SAVE_QUERY',
 };
 
-const saveRestaurants = data => ({
+const saveRestaurants = (data) => ({
   type: ACTIONS_TYPES.SAVE_RESTAURANTS,
   payload: data,
 });
 
-const setRestaurantsError = error => ({
+const setRestaurantsError = (error) => ({
   type: ACTIONS_TYPES.SET_LOAD_RESTAURANTS_ERROR,
   payload: error,
 });
@@ -27,17 +28,22 @@ const stopLoading = () => ({
   type: ACTIONS_TYPES.STOP_LOADING,
 });
 
-const saveRestaurantInfo = data => ({
+const saveRestaurantInfo = (data) => ({
   type: ACTIONS_TYPES.SAVE_RESTAURANT_INFO,
   payload: data,
 });
 
-const saveMenuItemInfo = data => ({
+const saveMenuItemInfo = (data) => ({
   type: ACTIONS_TYPES.SAVE_MENU_ITEM_INFO,
   payload: data,
 });
 
-export const loadRestaurants = () => async(dispatch) => {
+export const saveQuery = (data) => ({
+  type: ACTIONS_TYPES.SAVE_QUERY,
+  payload: data,
+});
+
+export const loadRestaurants = () => (dispatch) => {
   dispatch(startLoading());
   apiService.getRestaurants()
     .then(({ data }) => dispatch(saveRestaurants(data)))
@@ -47,7 +53,7 @@ export const loadRestaurants = () => async(dispatch) => {
     .finally(() => dispatch(stopLoading()));
 };
 
-export const loadRestaurantInfo = id => async(dispatch) => {
+export const loadRestaurantInfo = (id) => (dispatch) => {
   dispatch(startLoading());
   apiService.getRestaurantInfo(id)
     .then(({ data }) => dispatch(saveRestaurantInfo(data)))
@@ -57,10 +63,10 @@ export const loadRestaurantInfo = id => async(dispatch) => {
     .finally(() => dispatch(stopLoading()));
 };
 
-export const loadMenuItemInfo = id => async(dispatch) => {
+export const loadMenuItemInfo = (id) => (dispatch) => {
   dispatch(startLoading());
   apiService.getMenuItemInfo(id)
-    .then(data => dispatch(saveMenuItemInfo(data)))
+    .then((data) => dispatch(saveMenuItemInfo(data)))
     .catch((e) => {
       dispatch(setRestaurantsError(e.message));
     })
