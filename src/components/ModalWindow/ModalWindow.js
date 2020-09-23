@@ -12,7 +12,7 @@ export const ModalWindow = ({ isOpened, onClose }) => isOpened && createPortal(
     <div
       className="modal-window__container"
     />
-  </div>, document.getElementById('modal')
+  </div>, document.getElementById('modal'),
 );
 
 ModalWindow.propTypes = {

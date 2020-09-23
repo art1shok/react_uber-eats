@@ -16,7 +16,7 @@ const cutText = (string, value) => {
 
 export const CardList = ({ cardInfo }) => (
   <div className="card-list">
-    {cardInfo.map(card => (
+    {cardInfo.map((card) => (
       <div
         className="card-list__item"
         key={card.uuid}
@@ -60,7 +60,7 @@ CardList.propTypes = {
       price: PropTypes.number.isRequired,
       imageUrl: PropTypes.string,
       uuid: PropTypes.string.isRequired,
-    }).isRequired
+    }).isRequired,
   ),
 };
 

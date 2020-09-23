@@ -14,7 +14,7 @@ export const Input = (
     className,
     isSmall,
     label,
-  }
+  },
 ) => {
   const [focused, setFocused] = useState({
     isFocused: false,

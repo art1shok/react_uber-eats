@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class ApiService {
+class ApiService{
   instance = axios.create({
     baseURL: 'https://mate-uber-eats-api.herokuapp.com/api/v1',
   })

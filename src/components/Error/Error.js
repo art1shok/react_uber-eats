@@ -12,7 +12,7 @@ const Error = (props) => {
       <p>
         {message}
       </p>
-      <Link href="/" className="error__link">
+      <Link to="/#" className="error__link">
         Go to Home
       </Link>
     </div>

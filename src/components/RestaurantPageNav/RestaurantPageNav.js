@@ -45,6 +45,6 @@ RestaurantPageNav.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       uuid: PropTypes.string.isRequired,
-    }).isRequired
+    }).isRequired,
   ).isRequired,
 };

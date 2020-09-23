@@ -7,7 +7,7 @@ export const RestaurantPageSection = ({ sections }) => (
   <div
     className="restaurant-page__menu-item"
   >
-    {sections.map(section => (
+    {sections.map((section) => (
       (
         <section
           key={section.uuid}
@@ -20,7 +20,7 @@ export const RestaurantPageSection = ({ sections }) => (
 
           </div>
           <CardList
-            cardInfo={section.itemUuids.map(itemCardUuids => ({
+            cardInfo={section.itemUuids.map((itemCardUuids) => ({
               title: section.entitiesMap[itemCardUuids].title,
               description: section.entitiesMap[itemCardUuids].description,
               price: section.entitiesMap[itemCardUuids].price,
@@ -46,6 +46,6 @@ RestaurantPageSection.propTypes = {
         title: PropTypes.string.isRequired,
         uuid: PropTypes.string.isRequired,
       }).isRequired).isRequired,
-    }).isRequired
+    }).isRequired,
   ).isRequired,
 };

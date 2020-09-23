@@ -9,12 +9,6 @@ function Select({ title: initialTitle, options }) {
   const [title, setTitle] = useState(initialTitle);
   const selectRef = useRef();
 
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
-
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, []);
-
   const handleChooseOption = (value) => {
     setTitle(value);
     setOpened(false);
@@ -30,6 +24,12 @@ function Select({ title: initialTitle, options }) {
     }
   };
 
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
     <div
       className="select"
@@ -40,7 +40,7 @@ function Select({ title: initialTitle, options }) {
         className="select__header"
         role="button"
         tabIndex={0}
-        onClick={() => setOpened(prevState => !prevState)}
+        onClick={() => setOpened((prevState) => !prevState)}
         aria-hidden="true"
       >
         <img src={world} alt="" className="select__icon" />
@@ -51,7 +51,7 @@ function Select({ title: initialTitle, options }) {
       </div>
       {isOpened && (
         <div className="select__body">
-          {options.map(item => (
+          {options.map((item) => (
             <div
               className="select__option"
               key={item.id}
@@ -64,8 +64,7 @@ function Select({ title: initialTitle, options }) {
             </div>
           ))}
         </div>
-      )
-      }
+      )}
     </div>
   );
 }
