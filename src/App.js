@@ -15,8 +15,8 @@ const App = () => (
       <Header />
       <Switch>
         <main className="page">
-          <Route path="/" exact component={RestaurantsListPage} />
-          <Route path="/restaurant/:uuid" component={RestaurantPage} />
+          <Route path="/react_uber-eats/" exact component={RestaurantsListPage} />
+          <Route path="/react_uber-eats/restaurant/:uuid" component={RestaurantPage} />
         </main>
       </Switch>
       <Footer />

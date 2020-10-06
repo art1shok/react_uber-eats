@@ -21,25 +21,27 @@ export const Header = () => {
   });
   const dispatch = useDispatch();
 
-  const handleClickOutside = (event) => {
-    const { current } = elementRef;
+  // const handleClickOutside = (event) => {
+  //   const { current } = elementRef;
+  //
+  //   if ((current
+  //     && !current.contains(event.target))
+  //     || info.selectedButton !== null
+  //
+  //   ) {
+  //     setInfo({
+  //       selectedButton: null,
+  //     });
+  //   }
+  // };
 
-    if (current
-      && !current.contains(event.target)
-    ) {
-      setInfo({
-        selectedButton: null,
-      });
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('click', handleClickOutside);
+  //
+  //   return () => {
+  //     document.removeEventListener('click', handleClickOutside);
+  //   };
+  // }, []);
 
   useEffect(() => {
     dispatch(saveQuery(info.search));
@@ -104,7 +106,7 @@ export const Header = () => {
         ref={elementRef}
       >
         <div className="header__inner">
-          <Link to="/">
+          <Link to="/react_uber-eats/">
             <img
               className="header__logo"
               src={logo}

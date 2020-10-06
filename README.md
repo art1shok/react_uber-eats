@@ -1,1 +1,2 @@
-[Uber-eats](https://react-uber-eats.herokuapp.com/)
+[React Uber-eats](https://art1shok.github.io/react_uber-eats/)
+

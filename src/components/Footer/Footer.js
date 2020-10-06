@@ -66,28 +66,28 @@ export const Footer = () => (
         </div>
 
         <div className="footer__top-links links">
-          <Link to="/#" className="links__link links__link--intended">
+          <Link to="/react_uber-eats/" className="links__link links__link--intended">
             About UberEats
           </Link>
-          <Link to="/#" className="links__link">
+          <Link to="/react_uber-eats/" className="links__link">
             Read our blog
           </Link>
-          <Link to="/#" className="links__link">
+          <Link to="/react_uber-eats/" className="links__link">
             Sign up to deliver
           </Link>
-          <Link to="/#" className="links__link">
+          <Link to="/react_uber-eats/" className="links__link">
             Add your restaurant
           </Link>
         </div>
 
         <div className="footer__top-links">
-          <Link to="/#" className="links__link links__link--intended">
+          <Link to="/react_uber-eats/" className="links__link links__link--intended">
             Get help
           </Link>
-          <Link to="/#" className="links__link">
+          <Link to="/react_uber-eats/" className="links__link">
             Read FAQs
           </Link>
-          <Link to="/#" className="links__link">
+          <Link to="/react_uber-eats/" className="links__link">
             View all cities
           </Link>
         </div>
@@ -99,13 +99,13 @@ export const Footer = () => (
         </p>
         <div className="footer__misc">
           <div className="footer__bottom-links links">
-            <Link to="/#" className="links__link">
+            <Link to="/react_uber-eats/" className="links__link">
               Privacy policy
             </Link>
-            <Link to="/#" className="links__link">
+            <Link to="/react_uber-eats/" className="links__link">
               Terms of use
             </Link>
-            <Link to="/#" className="links__link">
+            <Link to="/react_uber-eats/" className="links__link">
               Pricing
             </Link>
           </div>
