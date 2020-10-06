@@ -9,7 +9,7 @@ export const RestaurantCard = ({
   <div
     className="restaurant-card"
   >
-    <Link to={`/restaurant/${uuid}`}>
+    <Link to={`/react_uber-eats/restaurant/${uuid}`}>
       <img
         src={imageUrl}
         alt={`restaurant_${title}`}
